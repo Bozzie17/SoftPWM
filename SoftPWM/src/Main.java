@@ -35,7 +35,7 @@ public class Main {
 
         // by default we will use gpio pin #01; however, if an argument
         // has been provided, then lookup the pin by address
-        Pin pin = RaspiPin.GPIO_01;               // argument array to search in
+        Pin pin = RaspiPin.GPIO_08;               // argument array to search in
 
         // we will provision the pin as a software emulated PWM output
         // pins that support hardware PWM should be provisioned as normal PWM outputs
@@ -55,8 +55,23 @@ public class Main {
         console.println(" ... Successfully provisioned PWM pin: " + pwm.toString());
         console.emptyLine();
 
-        // set the PWM rate to 100 (FULLY ON)
+        pwm.setPwm(0);
+        console.println("Do things");
+        System.console().readLine();
+        for (int i = 0; i <= 100; i++) {
+            pwm.setPwm(i);
+            Thread.sleep(100);
+        }
+        for (int i = 100; i >= 0; i--) {
+            pwm.setPwm(i);
+            Thread.sleep(10);
+        }
+
+
+
+        /*// set the PWM rate to 100 (FULLY ON)
         pwm.setPwm(100);
+
         console.println("Software emulated PWM rate is: " + pwm.getPwm());
 
         console.println("Press ENTER to set the PWM to a rate of 50");
@@ -71,7 +86,7 @@ public class Main {
 
         // set the PWM rate to 0 (FULLY OFF)
         pwm.setPwm(0);
-        console.println("Software emulated PWM rate is: " + pwm.getPwm());
+        console.println("Software emulated PWM rate is: " + pwm.getPwm());*/
 
         // stop all GPIO activity/threads by shutting down the GPIO controller
         // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
